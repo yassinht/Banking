@@ -1,1 +1,11 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Banking_db
+    driver-class-name: org.postgresql.Driver
+    username: yassi
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
