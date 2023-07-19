@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@SuperBuilder //because we use AbstraactEntity
 @Entity
 public class Contact extends AbstractEntity{
 
