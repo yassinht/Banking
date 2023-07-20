@@ -5,6 +5,9 @@ import com.houta.bankManagement.models.TransactionType;
 import com.houta.bankManagement.models.User;
 import lombok.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Getter
@@ -15,6 +18,9 @@ import java.math.BigDecimal;
 public class TransactionDto {
     private Integer id ;
 
+    @Positive
+    @Max(value = 1000000)
+    @Min(value = 10)
     private BigDecimal amount;
 
     private TransactionType type ;
