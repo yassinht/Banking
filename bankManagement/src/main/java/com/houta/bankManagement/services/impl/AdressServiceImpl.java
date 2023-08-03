@@ -3,6 +3,7 @@ package com.houta.bankManagement.services.impl;
 import com.houta.bankManagement.dto.AccountDto;
 import com.houta.bankManagement.dto.AdressDto;
 import com.houta.bankManagement.models.Adress;
+import com.houta.bankManagement.repositories.AdressRepository;
 import com.houta.bankManagement.services.AdressService;
 import com.houta.bankManagement.validators.ObjectsValidator;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class AdressServiceImpl  implements AdressService {
 
     private final AdressRepository repository ;
 
-    private final ObjectsValidator<AccountDto> validator;
+    private final ObjectsValidator<AdressDto> validator;
     @Override
     public Integer save(AdressDto dto) {
         validator.validate(dto);
@@ -38,7 +39,7 @@ public class AdressServiceImpl  implements AdressService {
     public AdressDto findById(Integer id) {
         return repository.findById(id)
                 .map(AdressDto::fromEntity)
-                .orElseThrow(() -> new EntityNotFoundException("No Adress found with this id"+id))
+                .orElseThrow(() -> new EntityNotFoundException("No Adress found with this id"+id));
     }
 
     @Override
