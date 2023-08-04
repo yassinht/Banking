@@ -18,9 +18,10 @@ import java.time.LocalDateTime;
 @Entity
 public class Transaction extends AbstractEntity {
 
+    private Integer id ;
+
     private BigDecimal amount;
 
-    @Enumerated(EnumType.STRING)
     private  TransactionType type ;
 
     private String destinationIban;
