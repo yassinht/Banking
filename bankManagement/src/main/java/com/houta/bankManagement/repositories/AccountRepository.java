@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AccountRepository  extends JpaRepository<Account,Integer> {
     Optional<Account> finByIban(String iban);
+
+    Optional<Account> findByUserId(Integer id);
 }

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
@@ -58,5 +59,14 @@ public class TransactionServiceImpl implements TransactionService {
 
     private  int getTransactionMultiplaier(TransactionType type){
         return TransactionType.TRANSFERT == type ? -1 : 1;
+    }
+
+    @Override
+    public List<TransactionDto> findAllByUserId(Integer userId) {
+
+        return repository.findAllByUserId(userId)
+                .stream()
+                .map(TransactionDto::fromEntity)
+        .collect(Collectors.toList());
     }
 }

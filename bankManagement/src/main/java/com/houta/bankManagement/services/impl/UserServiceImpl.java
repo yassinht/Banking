@@ -1,8 +1,12 @@
 package com.houta.bankManagement.services.impl;
 
+import com.houta.bankManagement.dto.AccountDto;
 import com.houta.bankManagement.dto.UserDto;
+import com.houta.bankManagement.models.Account;
 import com.houta.bankManagement.models.User;
+import com.houta.bankManagement.repositories.AccountRepository;
 import com.houta.bankManagement.repositories.UserRepository;
+import com.houta.bankManagement.services.AccountService;
 import com.houta.bankManagement.services.UserService;
 import com.houta.bankManagement.validators.ObjectsValidator;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl  implements UserService {
     private final UserRepository repository;
     private final ObjectsValidator<UserDto> validator;
+    private final AccountService accountService;
     @Override
     public Integer save(UserDto dto) {
         validator.validate(dto);
@@ -48,5 +53,29 @@ public class UserServiceImpl  implements UserService {
     public void delete(Integer id) {
 //todo check before delete
    repository.deleteById(id);
+    }
+
+    @Override
+    public Integer validateAccount(Integer id) {
+        User user = repository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("No user was found with this id : "+id));
+        user.setActive(true);
+        //create bank account
+        AccountDto account =  AccountDto.builder()
+                .user(UserDto.fromEntity(user))
+                .build();
+        accountService.save(account);
+        repository.save(user);
+        return user.getId();
+    }
+
+    @Override
+    public Integer invalidateAccount(Integer id) {
+        User user = repository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("No user was found with this id : "+id));
+        user.setActive(false);
+        repository.save(user);
+        return user.getId();
+
     }
 }
